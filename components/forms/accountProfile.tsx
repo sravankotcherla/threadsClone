@@ -64,7 +64,6 @@ const AccountProfile = (props: Props) => {
   const onSubmit = async (values: z.infer<typeof userValidation>) => {
       try {
           const onboardedUser = await updateUser({...values, userId: user.id});
-          console.log(onboardedUser);
           router.push("/");
       } catch (err) {
           console.log("Failed to update/create user", err);
@@ -72,7 +71,6 @@ const AccountProfile = (props: Props) => {
       
 
   };
-    debugger;
     
   return (
     <Form {...form}>

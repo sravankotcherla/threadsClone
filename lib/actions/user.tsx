@@ -1,19 +1,12 @@
 "use server";
 
 import { connectToDB } from "../connectDb";
+import UserInterface from "../interfaces";
 import { User } from "../models/user";
 
-interface UserInterface {
-  userId: string;
-  name: string;
-  username: string;
-  profile_photo: string;
-  bio: string;
-  onboarded: boolean;
-  threads: Object[];
-}
 
-export const updateUser: Promise<UserInterface> = async (
+
+export const updateUser = async (
   userInfo: UserInterface
 ) => {
   try {
@@ -29,21 +22,10 @@ export const updateUser: Promise<UserInterface> = async (
   }
 };
 
-export const fetchUser: Promise<UserInterface> = async (userId: string) => {
+export const fetchUser = async (userId: string) => {
     try {
         await connectToDB();
-    const reqUser = await User.findOne({ userId: userId }).lean();
-    const response = reqUser
-      ? {
-          userId: reqUser.userId,
-          name: reqUser.name,
-          username: reqUser.username,
-          bio: reqUser.bio,
-          onboarded: reqUser.onboarded,
-          profile_photo: reqUser.profile_photo,
-        }
-        : null;
-    return response;
+    return await User.findOne({ userId: userId }).lean();
   } catch (err) {
     console.log(err);
     return err;

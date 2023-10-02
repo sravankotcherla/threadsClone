@@ -5,7 +5,6 @@ const connectionString = process.env.MONGODB_URL;
 
 export const connectToDB = async () => {
     let isConnected=false
-    console.log(connectionString);
     if (!connectionString) {
         console.log("Could not find MONGODB_URL");
         return
